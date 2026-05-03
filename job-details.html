@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SkillSwap - Professional Home Painting</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Manrope:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#dce9ff",
+                        "on-secondary": "#ffffff",
+                        "outline": "#727780",
+                        "on-tertiary-fixed-variant": "#384953",
+                        "on-tertiary-fixed": "#0c1e26",
+                        "on-primary-fixed-variant": "#07497d",
+                        "inverse-primary": "#a0c9ff",
+                        "on-secondary-container": "#684000",
+                        "surface-bright": "#f8f9ff",
+                        "primary-container": "#0f4c81",
+                        "outline-variant": "#c2c7d1",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#fea619",
+                        "tertiary-container": "#3c4c56",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed-variant": "#653e00",
+                        "tertiary": "#25353f",
+                        "on-secondary-fixed": "#2a1700",
+                        "primary-fixed-dim": "#a0c9ff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#00355f",
+                        "on-tertiary-container": "#aabcc7",
+                        "tertiary-fixed": "#d3e5f1",
+                        "on-surface-variant": "#42474f",
+                        "error-container": "#ffdad6",
+                        "surface": "#f8f9ff",
+                        "secondary-fixed": "#ffddb8",
+                        "tertiary-fixed-dim": "#b7c9d5",
+                        "surface-container-low": "#eff4ff",
+                        "inverse-surface": "#213145",
+                        "on-background": "#0b1c30",
+                        "on-surface": "#0b1c30",
+                        "on-error-container": "#93000a",
+                        "secondary": "#855300",
+                        "background": "#f8f9ff",
+                        "secondary-fixed-dim": "#ffb95f",
+                        "surface-variant": "#d3e4fe",
+                        "surface-container": "#e5eeff",
+                        "surface-dim": "#cbdbf5",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#d2e4ff",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-tint": "#2d6197",
+                        "on-primary-container": "#8ebdf9",
+                        "on-primary-fixed": "#001c37"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "section-gap": "120px",
+                        "margin-page": "40px",
+                        "unit": "8px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Manrope"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "display-xl": ["Manrope"],
+                        "body-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "label-sm": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "display-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md antialiased pt-20 bg-transparent">
+<canvas id="spline-background" class="fixed inset-0 w-full h-full -z-10 object-cover"></canvas>
+<!-- TopNavBar (From JSON) -->
+<nav class="bg-white/95 dark:bg-slate-900/95 backdrop-blur-md fixed top-0 w-full z-50 border-b border-slate-100 dark:border-slate-800 shadow-[0_10px_20px_rgba(15,76,129,0.04)] font-['Manrope'] text-sm tracking-tight">
+<div class="max-w-[1260px] mx-auto flex items-center justify-between px-8 h-20">
+<!-- Brand -->
+<a class="text-2xl font-black text-[#0F4C81] dark:text-white flex items-center gap-2" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">handshake</span>
+                SkillSwap
+            </a>
+<!-- Navigation Links -->
+<ul class="hidden md:flex items-center gap-8">
+<li><a class="text-[#0F4C81] dark:text-white font-bold border-b-2 border-[#FFBF00] pb-1 hover:text-[#FFBF00] transition-colors duration-200 active:scale-95 transition-transform" href="browse-services.html">Browse</a></li>
+<li><a class="text-slate-600 dark:text-slate-400 font-medium hover:text-[#FFBF00] transition-colors duration-200 active:scale-95 transition-transform" href="#">How it Works</a></li>
+<li><a class="text-slate-600 dark:text-slate-400 font-medium hover:text-[#FFBF00] transition-colors duration-200 active:scale-95 transition-transform" href="post-job.html">Post a Job</a></li>
+<li><a class="text-slate-600 dark:text-slate-400 font-medium hover:text-[#FFBF00] transition-colors duration-200 active:scale-95 transition-transform" href="dashboard.html">Dashboard</a></li>
+</ul>
+<!-- Actions -->
+<div class="flex items-center gap-4">
+<a class="hidden md:block font-label-sm text-label-sm text-[#0F4C81] dark:text-sky-400 hover:text-[#FFBF00] transition-colors duration-200" href="#">Login</a>
+<a class="font-label-sm text-label-sm bg-[#0F4C81] text-white px-5 py-2.5 rounded-lg hover:bg-opacity-90 active:scale-95 transition-all shadow-md" href="#">Sign Up</a>
+</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-grow max-w-[1260px] w-full mx-auto px-8 py-margin-page lg:py-16">
+<!-- Grid Layout: Main Content vs Sidebar -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter relative">
+<!-- Left Column: Details -->
+<div class="lg:col-span-8 space-y-12">
+<!-- Header Section -->
+<header>
+<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface-container-high text-on-primary-container font-label-sm text-label-sm mb-6">
+<span class="material-symbols-outlined text-[18px]">format_paint</span>
+                        Home Improvement
+                    </div>
+<h1 class="font-display-xl text-display-xl text-on-surface mb-6 leading-tight">Professional Interior &amp; Exterior Home Painting</h1>
+<div class="flex flex-wrap items-center gap-6 text-on-surface-variant font-body-md text-body-md">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary-container" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-bold text-on-surface">4.9</span>
+<span>(128 reviews)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined">location_on</span>
+<span>Seattle, WA</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined">workspace_premium</span>
+<span>SkillSwap Elite</span>
+</div>
+</div>
+</header>
+<!-- Bento Gallery -->
+<section class="grid grid-cols-2 md:grid-cols-3 gap-unit h-[400px]">
+<div class="col-span-2 row-span-2 rounded-xl overflow-hidden relative group">
+<img alt="" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A bright, modern residential exterior undergoing a professional paint job. A skilled painter stands on a ladder, applying a smooth coat of slate-blue paint to the siding. The lighting is sunny and clear, casting soft shadows and highlighting the clean, crisp edges of the fresh paint against the crisp white trim. The aesthetic is high-end, reliable, and perfectly aligned with a premium modern corporate marketplace brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuANJ93hDYXVRm4o4kIiMTbzURycQm8zOUX3V6Wgvd2-2Bly2VGWDpeBQfSpBCsJPnKsrgz1vDzOe-57dl4ITXoMLhvh--WlVhEOGPAXeE8Of4Ghv3ObO8BZVedkdeXxEzSfOQ91DQKGeOnOe3l_F9ex0YouRZ6FmBbxoXBtYtL6ItNcBzVlmNBHSPbMDOveFognRuYUhEboeco9Cv8A00X0A2g-xxEoV3sthV_FfR8GVXuOJ9zDDghwglGGKT4vY36n45TziwXFYBAw"/>
+</div>
+<div class="col-span-1 row-span-1 rounded-xl overflow-hidden relative group">
+<img alt="" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A close-up view of a professional painter's hand using a high-quality brush to meticulously cut in around a pristine white window frame. The paint being applied is a sophisticated deep navy blue. The lighting is bright interior natural light, emphasizing precision, expertise, and a clean, detail-oriented modern corporate style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhalR1t11A0QPEYpY4U_LKCztdVG1hW3cFxOo6_BmpKwmdy3YtWJDuwrFtXHYVnb0zWgsgVzgej6EcwwhFNUEzulhkMiu3yFscb0psAGcuDXUtJJnAgMIc582bzPETDXYxIbck5ELLCh4Jsvr04m5jwY8Ktmsb_pQt7bZgLLIZ0qzAm7sEx7vWCOIBcocYWC1KjHl8RIl2MNq9_AgSJ09Ec3-rI7vb2Tsf_asboayPDQpwAUosGcDp3uzNtsR3UXwffXXtW9eJXp3N"/>
+</div>
+<div class="col-span-1 row-span-1 rounded-xl overflow-hidden relative group">
+<img alt="" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A beautifully finished, modern living room showcasing a freshly painted accent wall in a calming, sophisticated slate gray. Minimalist furniture sits beautifully against the pristine wall. Sunlight streams through a large window, creating a serene, high-quality, and trustworthy atmosphere indicative of expert craftsmanship and premium service." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBACxXbN-X7iY79EvhRnoBZ_XpLMfQAbPEb2TfHjXLU3xav-_AdA3ByEbYD4IcPO542hDpew5vhVKTWzCbafmwVO9-7LjkPeFzrldwnH07ecDKtC2pw39p4zGy8a5pHXek6Z7mbYeNRkY7B3efHFK-XAf6NaQC_jAD_xKeuGMKok8nK0ZGVTBnjs-Y8Vtq-OvtaB9U8-z9HeklZM0GDDS4GYPS5znkVIvZ_eTflTm09L3Hg94nVIpNpLiDVg9p_-dcKVPk3vutVqUO"/>
+</div>
+</section>
+<!-- Service Description -->
+<section>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-6">About this Service</h2>
+<div class="font-body-lg text-body-lg text-on-surface-variant space-y-5">
+<p>Transform your living space with our premium interior and exterior painting services. With over 10 years of experience, we pride ourselves on delivering flawless finishes, impeccable attention to detail, and a hassle-free experience from consultation to final walkthrough.</p>
+<p>We use only top-tier, low-VOC paints from trusted brands to ensure durability and a safe environment for your family. Whether you need a single room refreshed or a complete exterior makeover, our process includes thorough preparation, professional application, and rigorous cleanup.</p>
+<ul class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-1">check_circle</span>
+<span>Color consultation included</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-1">check_circle</span>
+<span>Drywall repair &amp; prep work</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-1">check_circle</span>
+<span>Fully insured &amp; licensed</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-1">check_circle</span>
+<span>2-year workmanship warranty</span>
+</li>
+</ul>
+</div>
+</section>
+<hr class="border-outline-variant/30"/>
+<!-- Professional Bio (Glassmorphic influence) -->
+<section class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_8px_30px_rgb(15,76,129,0.04)] border border-outline-variant/20 relative overflow-hidden group hover:shadow-[0_12px_40px_rgb(15,76,129,0.08)] hover:border-inverse-primary/50 transition-all duration-300">
+<div class="absolute top-0 right-0 w-64 h-64 bg-surface-container-high rounded-full blur-3xl -mr-20 -mt-20 opacity-50 pointer-events-none"></div>
+<div class="relative z-10 flex flex-col sm:flex-row gap-8 items-start">
+<img alt="" class="w-24 h-24 rounded-full object-cover border-4 border-surface ring-1 ring-outline-variant/20 shadow-md" data-alt="A professional headshot of a confident, friendly male contractor in his 40s wearing a clean, branded navy blue polo shirt. He is smiling warmly at the camera, standing in a well-lit, modern indoor environment with a softly blurred background. The lighting is high-key and professional, projecting trust, expertise, and approachability in a premium marketplace setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDKvDGzNEZG5U6hE8I16fP58LKQBdnzVAaT1p8R9Z00pI2mVbf_vvyPoSsxgmY8ef75RIPPbIR7ZFinZQHx_yta8orYDylBi2MBytsdOa631somcAC13SNoQ17OU36rBu3P4dLfdAjQ64YvjZJ_OpYo64X-_SpZM6cTxUn0Fo5NCmmeFOK1u0w9c9luPXFmDMwnAW1XP_KGMa5F1o97SmjjwxLWyChRnp915vwi3ZnymwArxR7n9DR1PBEtYtPGPT2S1ePjQPAlCRz6"/>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+                                        Marcus Reynolds
+                                        <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">verified</span>
+</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Master Painter &amp; Decorator</p>
+</div>
+<a class="hidden sm:inline-flex px-4 py-2 rounded-lg border border-outline text-on-surface font-label-sm text-label-sm hover:bg-surface-container transition-colors" href="#">View Profile</a>
+</div>
+<div class="flex gap-6 mt-4 mb-4 pb-4 border-b border-outline-variant/20">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Jobs Completed</p>
+<p class="font-headline-md text-on-surface">342</p>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Response Time</p>
+<p class="font-headline-md text-on-surface">&lt; 1 hr</p>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-3">
+                                Hi, I'm Marcus. I founded Reynolds Painting with a simple mission: to provide exceptional quality and reliability. My team and I treat every home as if it were our own, ensuring meticulous prep work and a stunning final result. Let's bring your vision to life.
+                            </p>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Sidebar (Sticky) -->
+<div class="lg:col-span-4">
+<div class="sticky top-28 bg-surface-container-lowest rounded-xl p-8 shadow-[0_10px_40px_rgb(15,76,129,0.06)] border border-outline-variant/20">
+<div class="mb-6">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Starting at</p>
+<div class="flex items-end gap-2">
+<span class="font-display-xl text-display-xl text-primary leading-none">$450</span>
+<span class="font-body-md text-body-md text-on-surface-variant mb-1">/ room</span>
+</div>
+</div>
+<div class="space-y-4 mb-8">
+<div class="flex items-center gap-3 font-body-md text-body-md text-on-surface">
+<span class="material-symbols-outlined text-outline">schedule</span>
+                            Typically completes in 1-3 days
+                        </div>
+<div class="flex items-center gap-3 font-body-md text-body-md text-on-surface">
+<span class="material-symbols-outlined text-outline">calendar_month</span>
+                            Available starting next week
+                        </div>
+</div>
+<button class="w-full bg-secondary-container text-on-secondary-container font-label-sm text-label-sm py-4 rounded-lg hover:bg-secondary-fixed-dim hover:shadow-lg transition-all duration-200 shadow-sm flex justify-center items-center gap-2 mb-4">
+                        Request a Quote
+                        <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+<button class="w-full bg-surface-container text-on-surface font-label-sm text-label-sm py-4 rounded-lg hover:bg-surface-container-high transition-all duration-200 flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">chat_bubble_outline</span>
+                        Message Marcus
+                    </button>
+<div class="mt-8 pt-6 border-t border-outline-variant/20 flex items-center justify-center gap-2 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-primary">security</span>
+                        SkillSwap Payment Protection
+                    </div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer (From JSON) -->
+<footer class="w-full mt-auto bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 font-['Manrope'] text-xs font-normal">
+<div class="max-w-[1260px] mx-auto py-12 px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="text-lg font-bold text-[#0F4C81] dark:text-white flex items-center gap-2">
+<span class="material-symbols-outlined">handshake</span>
+                SkillSwap
+            </div>
+<ul class="flex flex-wrap justify-center gap-6">
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-[#FFBF00] underline-offset-4 hover:underline opacity-100 hover:opacity-80 transition-opacity" href="#">About SkillSwap</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-[#FFBF00] underline-offset-4 hover:underline opacity-100 hover:opacity-80 transition-opacity" href="browse-services.html">Find a Professional</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-[#FFBF00] underline-offset-4 hover:underline opacity-100 hover:opacity-80 transition-opacity" href="post-job.html">Post a Job</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-[#FFBF00] underline-offset-4 hover:underline opacity-100 hover:opacity-80 transition-opacity" href="#">Safety &amp; Trust</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-[#FFBF00] underline-offset-4 hover:underline opacity-100 hover:opacity-80 transition-opacity" href="#">Privacy Policy</a></li>
+<li><a class="text-slate-500 dark:text-slate-400 hover:text-[#FFBF00] underline-offset-4 hover:underline opacity-100 hover:opacity-80 transition-opacity" href="#">Terms of Service</a></li>
+</ul>
+<div class="text-slate-500 dark:text-slate-400">
+                © 2024 SkillSwap Marketplace. Professional Excellence Guaranteed.
+            </div>
+</div>
+</footer>
+
+<script type="module">
+  import { Application } from 'https://esm.sh/@splinetool/runtime';
+  const bgCanvas = document.getElementById('spline-background');
+  if (bgCanvas) {
+    const bgSpline = new Application(bgCanvas);
+    bgSpline.load('https://prod.spline.design/HK25s1Zuyr9d3CV7/scene.splinecode');
+  }
+</script>
+</body></html>

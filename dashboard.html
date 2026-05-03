@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SkillSwap Professional Dashboard</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Manrope:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-high": "#dce9ff",
+                    "on-secondary": "#ffffff",
+                    "outline": "#727780",
+                    "on-tertiary-fixed-variant": "#384953",
+                    "on-tertiary-fixed": "#0c1e26",
+                    "on-primary-fixed-variant": "#07497d",
+                    "inverse-primary": "#a0c9ff",
+                    "on-secondary-container": "#684000",
+                    "surface-bright": "#f8f9ff",
+                    "primary-container": "#0f4c81",
+                    "outline-variant": "#c2c7d1",
+                    "on-error": "#ffffff",
+                    "error": "#ba1a1a",
+                    "secondary-container": "#fea619",
+                    "tertiary-container": "#3c4c56",
+                    "on-primary": "#ffffff",
+                    "on-secondary-fixed-variant": "#653e00",
+                    "tertiary": "#25353f",
+                    "on-secondary-fixed": "#2a1700",
+                    "primary-fixed-dim": "#a0c9ff",
+                    "inverse-on-surface": "#eaf1ff",
+                    "on-tertiary": "#ffffff",
+                    "primary": "#00355f",
+                    "on-tertiary-container": "#aabcc7",
+                    "tertiary-fixed": "#d3e5f1",
+                    "on-surface-variant": "#42474f",
+                    "error-container": "#ffdad6",
+                    "surface": "#f8f9ff",
+                    "secondary-fixed": "#ffddb8",
+                    "tertiary-fixed-dim": "#b7c9d5",
+                    "surface-container-low": "#eff4ff",
+                    "inverse-surface": "#213145",
+                    "on-background": "#0b1c30",
+                    "on-surface": "#0b1c30",
+                    "on-error-container": "#93000a",
+                    "secondary": "#855300",
+                    "background": "#f8f9ff",
+                    "secondary-fixed-dim": "#ffb95f",
+                    "surface-variant": "#d3e4fe",
+                    "surface-container": "#e5eeff",
+                    "surface-dim": "#cbdbf5",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#d2e4ff",
+                    "surface-container-highest": "#d3e4fe",
+                    "surface-tint": "#2d6197",
+                    "on-primary-container": "#8ebdf9",
+                    "on-primary-fixed": "#001c37"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "section-gap": "120px",
+                    "margin-page": "40px",
+                    "unit": "8px",
+                    "container-max": "1280px"
+            },
+            "fontFamily": {
+                    "headline-lg": [
+                            "Manrope"
+                    ],
+                    "label-sm": [
+                            "Inter"
+                    ],
+                    "headline-md": [
+                            "Manrope"
+                    ],
+                    "body-lg": [
+                            "Manrope"
+                    ],
+                    "display-xl": [
+                            "Manrope"
+                    ],
+                    "body-md": [
+                            "Manrope"
+                    ]
+            },
+            "fontSize": {
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "label-sm": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "letterSpacing": "0.01em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "display-xl": [
+                            "48px",
+                            {
+                                    "lineHeight": "56px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "800"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        .ambient-shadow {
+            box-shadow: 0 10px 20px rgba(15, 76, 129, 0.04);
+        }
+        .soft-lift:hover {
+            box-shadow: 0 15px 30px rgba(15, 76, 129, 0.08);
+            transform: translateY(-2px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md flex antialiased bg-transparent">
+<canvas id="spline-background" class="fixed inset-0 w-full h-full -z-10 object-cover"></canvas>
+<!-- SideNavBar (Generated from JSON) -->
+<nav class="h-screen w-64 fixed left-0 top-0 border-r border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 flex flex-col py-6 z-40 hidden md:flex">
+<!-- Brand Logo -->
+<div class="px-8 mb-8">
+<span class="text-xl font-bold text-[#0F4C81] dark:text-white font-['Manrope']">SkillSwap</span>
+</div>
+<!-- Profile Header -->
+<div class="px-6 mb-8 flex items-center gap-4">
+<img alt="Professional provider profile picture" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm" data-alt="A professional headshot of a skilled carpenter in a bright, modern workshop setting. The lighting is soft and flattering, creating a trustworthy and approachable mood. The color palette aligns with a modern corporate aesthetic, featuring crisp whites, subtle slate grays, and hints of navy blue in their attire to match the platform's trust-centric identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBW_pEKmFdmvPOkedECMZauOTofr09W37S4537YgBtb4eHbZc8poEzNHNVbH5dfySv48j6YNcl-kTM-g6LCnOyiFHcEVqmGiRRcaYqDDpOxtQhJvWXP4t03r0S05aHJWKT0ItDLldZSyUrDKwYPI3b0eJuUXnlxzc7gPlcs1daCdCR3HKjHnwv3c7QqqZylhMmGwV6XCtAWI_yHPVcEBykwX4FP4z6GLMFJbL-xUgiCdRG6BrN1QhQANW_qr2Wq23O37oUZVfJ5eZq"/>
+<div>
+<h2 class="font-label-sm text-label-sm text-[#0F4C81] dark:text-sky-400">Pro Dashboard</h2>
+<p class="text-xs font-['Manrope'] text-slate-500 font-medium">Verified Provider</p>
+</div>
+</div>
+<!-- Main Navigation -->
+<div class="flex-1 overflow-y-auto font-['Manrope'] text-sm font-semibold">
+<!-- Active Tab: Overview -->
+<a class="bg-white dark:bg-slate-900 text-[#0F4C81] dark:text-sky-400 shadow-sm rounded-lg mx-2 my-1 px-4 py-3 border-l-4 border-[#0F4C81] flex items-center gap-3" href="#">
+<span class="material-symbols-outlined filled">dashboard</span>
+<span>Overview</span>
+</a>
+<!-- Inactive Tabs -->
+<a class="text-slate-500 dark:text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200 active:translate-x-1 mx-2 my-1 px-4 py-3 rounded-lg flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">work_outline</span>
+<span>Job Requests</span>
+</a>
+<a class="text-slate-500 dark:text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200 active:translate-x-1 mx-2 my-1 px-4 py-3 rounded-lg flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">chat_bubble_outline</span>
+<span>Messages</span>
+</a>
+<a class="text-slate-500 dark:text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200 active:translate-x-1 mx-2 my-1 px-4 py-3 rounded-lg flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span>Earnings</span>
+</a>
+<a class="text-slate-500 dark:text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200 active:translate-x-1 mx-2 my-1 px-4 py-3 rounded-lg flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</div>
+<!-- Footer Navigation -->
+<div class="mt-auto px-2 font-['Manrope'] text-sm font-semibold">
+<button class="w-full text-center py-3 mb-4 text-[#0F4C81] dark:text-sky-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200 rounded-lg">
+                Switch to Client
+            </button>
+<a class="text-slate-500 dark:text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-200 mx-2 my-1 px-4 py-3 rounded-lg flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span>Help Center</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 min-h-screen pb-section-gap">
+<!-- Top Workspace Header -->
+<header class="px-8 py-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-1">Good morning, Marcus.</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Here is what's happening with your projects today.</p>
+</div>
+<div class="flex gap-4">
+<button class="h-10 px-4 rounded-lg bg-surface-container-high text-on-surface font-label-sm text-label-sm hover:bg-surface-container-highest transition-colors duration-200 flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-size: 18px;">download</span>
+                    Export Report
+                </button>
+<button class="h-10 px-6 rounded-lg bg-primary-container text-on-primary-container font-label-sm text-label-sm shadow-sm hover:opacity-90 transition-opacity duration-200">
+                    New Proposal
+                </button>
+</div>
+</header>
+<!-- Main Dashboard Grid -->
+<div class="px-8 max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-gutter">
+<!-- Key Metric Cards -->
+<div class="bg-surface-container-lowest rounded-xl p-6 ambient-shadow soft-lift transition-all duration-300 border border-outline-variant/20 flex flex-col justify-between h-40">
+<div class="flex justify-between items-start">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Total Earnings</span>
+<div class="w-8 h-8 rounded-full bg-secondary-container/20 flex items-center justify-center text-secondary-container">
+<span class="material-symbols-outlined" style="font-size: 18px;">account_balance_wallet</span>
+</div>
+</div>
+<div>
+<h2 class="font-display-xl text-display-xl text-on-surface mb-1">$12,450</h2>
+<p class="font-label-sm text-label-sm text-surface-tint flex items-center gap-1">
+<span class="material-symbols-outlined" style="font-size: 16px;">trending_up</span>
+                        +14.5% vs last month
+                    </p>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-6 ambient-shadow soft-lift transition-all duration-300 border border-outline-variant/20 flex flex-col justify-between h-40">
+<div class="flex justify-between items-start">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Active Jobs</span>
+<div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined" style="font-size: 18px;">construction</span>
+</div>
+</div>
+<div>
+<h2 class="font-display-xl text-display-xl text-on-surface mb-1">8</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant">3 pending review</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-6 ambient-shadow soft-lift transition-all duration-300 border border-outline-variant/20 flex flex-col justify-between h-40">
+<div class="flex justify-between items-start">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Profile Views</span>
+<div class="w-8 h-8 rounded-full bg-tertiary-container/20 flex items-center justify-center text-tertiary-container">
+<span class="material-symbols-outlined" style="font-size: 18px;">visibility</span>
+</div>
+</div>
+<div>
+<h2 class="font-display-xl text-display-xl text-on-surface mb-1">342</h2>
+<p class="font-label-sm text-label-sm text-surface-tint flex items-center gap-1">
+<span class="material-symbols-outlined" style="font-size: 16px;">trending_up</span>
+                        +5.2% this week
+                    </p>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl p-6 ambient-shadow soft-lift transition-all duration-300 border border-outline-variant/20 flex flex-col justify-between h-40">
+<div class="flex justify-between items-start">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Success Rate</span>
+<div class="w-8 h-8 rounded-full bg-secondary-container/20 flex items-center justify-center text-secondary-container">
+<span class="material-symbols-outlined" style="font-size: 18px;">military_tech</span>
+</div>
+</div>
+<div>
+<h2 class="font-display-xl text-display-xl text-on-surface mb-1">98%</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Top Rated Provider</p>
+</div>
+</div>
+<!-- Chart Section (Bento: Spans 2 cols on lg, 3 on xl) -->
+<div class="lg:col-span-2 xl:col-span-3 bg-surface-container-lowest rounded-xl p-8 ambient-shadow border border-outline-variant/20 flex flex-col h-[400px]">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md text-on-surface">Revenue Analytics</h3>
+<div class="flex gap-2">
+<button class="px-3 py-1.5 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm">Weekly</button>
+<button class="px-3 py-1.5 rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm">Monthly</button>
+</div>
+</div>
+<!-- Chart Visualization Placeholder using styling -->
+<div class="flex-1 w-full bg-surface-bright rounded-lg border border-surface-container-highest relative overflow-hidden flex items-end px-6 pb-6 gap-4">
+<!-- Abstract Bars -->
+<div class="w-full flex justify-between items-end h-[80%]">
+<div class="w-1/12 bg-surface-container-high rounded-t-sm h-[30%] hover:bg-primary-container transition-colors"></div>
+<div class="w-1/12 bg-surface-container-high rounded-t-sm h-[45%] hover:bg-primary-container transition-colors"></div>
+<div class="w-1/12 bg-surface-container-high rounded-t-sm h-[25%] hover:bg-primary-container transition-colors"></div>
+<div class="w-1/12 bg-primary-container/60 rounded-t-sm h-[60%] hover:bg-primary-container transition-colors relative">
+<div class="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-inverse-surface text-inverse-on-surface text-xs py-1 px-2 rounded opacity-0 hover:opacity-100 transition-opacity whitespace-nowrap">$1,200</div>
+</div>
+<div class="w-1/12 bg-surface-container-high rounded-t-sm h-[50%] hover:bg-primary-container transition-colors"></div>
+<div class="w-1/12 bg-primary-container rounded-t-sm h-[85%] hover:bg-primary-container transition-colors relative shadow-[0_0_15px_rgba(15,76,129,0.3)]">
+<div class="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-inverse-surface text-inverse-on-surface text-xs py-1 px-2 rounded whitespace-nowrap">$2,450</div>
+</div>
+<div class="w-1/12 bg-surface-container-high rounded-t-sm h-[70%] hover:bg-primary-container transition-colors"></div>
+<div class="w-1/12 bg-surface-container-high rounded-t-sm h-[55%] hover:bg-primary-container transition-colors"></div>
+</div>
+<!-- Decorative Gradient overlay to simulate modern UI chart depth -->
+<div class="absolute inset-0 bg-gradient-to-t from-surface-bright to-transparent pointer-events-none opacity-50"></div>
+</div>
+</div>
+<!-- Recent Messages List -->
+<div class="xl:col-span-1 lg:col-span-1 md:col-span-2 bg-surface-container-lowest rounded-xl p-6 ambient-shadow border border-outline-variant/20 flex flex-col h-[400px]">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md text-on-surface">Recent Messages</h3>
+<button class="text-surface-tint hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+<div class="flex flex-col gap-5 overflow-y-auto pr-2">
+<!-- Message Item -->
+<div class="flex gap-4 items-start group cursor-pointer">
+<div class="w-10 h-10 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center font-bold flex-shrink-0">
+                            EK
+                        </div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline mb-0.5">
+<h4 class="font-label-sm text-label-sm text-on-surface truncate">Elena K.</h4>
+<span class="text-xs text-on-surface-variant">10m ago</span>
+</div>
+<p class="text-sm text-on-surface-variant truncate group-hover:text-primary transition-colors">Can we schedule the consultation for Tuesday?</p>
+</div>
+</div>
+<!-- Message Item -->
+<div class="flex gap-4 items-start group cursor-pointer">
+<img alt="Client avatar" class="w-10 h-10 rounded-full object-cover flex-shrink-0" data-alt="A small, circular avatar portrait of a modern corporate client. The lighting is studio quality, highlighting a professional and friendly demeanor. The background is a soft, out-of-focus slate gray, complementing the overall clean and trustworthy platform aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAApF1TRVSRE3TNNuhP3HNRVIAJ8nrDCJPUtURQowkfiaDySwDc3Siks1oQNx_iTqBhJ1x60iitoaMSqS1LroOt38IETnQuKEtFJqw9Lj9S6eURmfE1F_l2lgWg7o5KG7KTZxPd2VhGowAKrWTMWegx0rDdxUrf7TIaNdc8uMhtO52H8FawZX0Z1AmXkyhGrZ8Z3xiYGszF-0WIIIKI3DowNqhCQhC761fM1C3Wo8D8-hG0H3aKuLSjptttp5mqLhaPWj1QXZJhwq3J"/>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline mb-0.5">
+<h4 class="font-label-sm text-label-sm text-on-surface truncate">David M.</h4>
+<span class="text-xs text-on-surface-variant">2h ago</span>
+</div>
+<p class="text-sm text-on-surface-variant font-semibold truncate text-on-surface">Invoice #402 paid.</p>
+</div>
+</div>
+<!-- Message Item -->
+<div class="flex gap-4 items-start group cursor-pointer">
+<div class="w-10 h-10 rounded-full bg-surface-container-high text-on-surface flex items-center justify-center font-bold flex-shrink-0">
+                            SJ
+                        </div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline mb-0.5">
+<h4 class="font-label-sm text-label-sm text-on-surface truncate">Sarah J.</h4>
+<span class="text-xs text-on-surface-variant">Yesterday</span>
+</div>
+<p class="text-sm text-on-surface-variant truncate group-hover:text-primary transition-colors">The paint color looks perfect, thank you!</p>
+</div>
+</div>
+<!-- Message Item -->
+<div class="flex gap-4 items-start group cursor-pointer">
+<div class="w-10 h-10 rounded-full bg-surface-container-high text-on-surface flex items-center justify-center font-bold flex-shrink-0">
+                            RT
+                        </div>
+<div class="flex-1 min-w-0">
+<div class="flex justify-between items-baseline mb-0.5">
+<h4 class="font-label-sm text-label-sm text-on-surface truncate">Robert T.</h4>
+<span class="text-xs text-on-surface-variant">Mon</span>
+</div>
+<p class="text-sm text-on-surface-variant truncate group-hover:text-primary transition-colors">Do you have availability next month?</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Active Job Requests (Bento: Full width bottom section) -->
+<div class="md:col-span-2 lg:col-span-3 xl:col-span-4 mt-4">
+<div class="flex justify-between items-end mb-6 px-1">
+<h3 class="font-headline-md text-headline-md text-on-surface">Active Job Requests</h3>
+<a class="font-label-sm text-label-sm text-surface-tint hover:text-primary flex items-center gap-1 transition-colors" href="#">
+                        View All <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+<!-- Job Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-6 ambient-shadow soft-lift border border-outline-variant/20 transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<div class="inline-flex items-center px-2.5 py-1 rounded-full bg-secondary-container/10 text-secondary-container font-label-sm text-xs">
+                                Pending Quote
+                            </div>
+<span class="text-on-surface-variant font-label-sm text-sm">#REQ-092</span>
+</div>
+<h4 class="font-headline-md text-xl text-on-surface mb-2">Custom Oak Bookshelf</h4>
+<p class="font-body-md text-sm text-on-surface-variant mb-6 line-clamp-2">Client is looking for a floor-to-ceiling built-in bookshelf in solid oak with adjustable shelving. Dimensions attached in brief.</p>
+<div class="flex items-center gap-4 pt-4 border-t border-surface-container-highest">
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-sm">
+<span class="material-symbols-outlined" style="font-size: 18px;">location_on</span>
+<span data-location="Seattle, WA">Seattle, WA</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-sm">
+<span class="material-symbols-outlined" style="font-size: 18px;">calendar_today</span>
+                                Oct 24
+                            </div>
+</div>
+</div>
+<!-- Job Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-6 ambient-shadow soft-lift border border-outline-variant/20 transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<div class="inline-flex items-center px-2.5 py-1 rounded-full bg-surface-tint/10 text-surface-tint font-label-sm text-xs">
+                                In Progress
+                            </div>
+<span class="text-on-surface-variant font-label-sm text-sm">#REQ-088</span>
+</div>
+<h4 class="font-headline-md text-xl text-on-surface mb-2">Exterior Home Painting</h4>
+<p class="font-body-md text-sm text-on-surface-variant mb-6 line-clamp-2">Complete exterior prep and paint for a 2-story craftsman home. Paint colors already selected by client.</p>
+<div class="flex items-center gap-4 pt-4 border-t border-surface-container-highest">
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-sm">
+<span class="material-symbols-outlined" style="font-size: 18px;">location_on</span>
+<span data-location="Bellevue, WA">Bellevue, WA</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-sm">
+<span class="material-symbols-outlined" style="font-size: 18px;">payments</span>
+                                $3,200 Est.
+                            </div>
+</div>
+</div>
+<!-- Job Card 3 -->
+<div class="bg-surface-container-lowest rounded-xl p-6 ambient-shadow soft-lift border border-outline-variant/20 transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<div class="inline-flex items-center px-2.5 py-1 rounded-full bg-surface-tint/10 text-surface-tint font-label-sm text-xs">
+                                In Progress
+                            </div>
+<span class="text-on-surface-variant font-label-sm text-sm">#REQ-085</span>
+</div>
+<h4 class="font-headline-md text-xl text-on-surface mb-2">Kitchen Cabinet Refinishing</h4>
+<p class="font-body-md text-sm text-on-surface-variant mb-6 line-clamp-2">Sanding, priming, and painting 24 cabinet doors and drawer fronts. Hardware replacement included.</p>
+<div class="flex items-center gap-4 pt-4 border-t border-surface-container-highest">
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-sm">
+<span class="material-symbols-outlined" style="font-size: 18px;">location_on</span>
+<span data-location="Redmond, WA">Redmond, WA</span>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-sm">
+<span class="material-symbols-outlined" style="font-size: 18px;">payments</span>
+                                $1,850 Est.
+                            </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+
+<script type="module">
+  import { Application } from 'https://esm.sh/@splinetool/runtime';
+  const bgCanvas = document.getElementById('spline-background');
+  if (bgCanvas) {
+    const bgSpline = new Application(bgCanvas);
+    bgSpline.load('https://prod.spline.design/HK25s1Zuyr9d3CV7/scene.splinecode');
+  }
+</script>
+</body></html>

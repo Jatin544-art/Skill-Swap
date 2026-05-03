@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SkillSwap - Find Local Professionals</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Manrope:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-high": "#dce9ff",
+                    "on-secondary": "#ffffff",
+                    "outline": "#727780",
+                    "on-tertiary-fixed-variant": "#384953",
+                    "on-tertiary-fixed": "#0c1e26",
+                    "on-primary-fixed-variant": "#07497d",
+                    "inverse-primary": "#a0c9ff",
+                    "on-secondary-container": "#684000",
+                    "surface-bright": "#f8f9ff",
+                    "primary-container": "#0f4c81",
+                    "outline-variant": "#c2c7d1",
+                    "on-error": "#ffffff",
+                    "error": "#ba1a1a",
+                    "secondary-container": "#fea619",
+                    "tertiary-container": "#3c4c56",
+                    "on-primary": "#ffffff",
+                    "on-secondary-fixed-variant": "#653e00",
+                    "tertiary": "#25353f",
+                    "on-secondary-fixed": "#2a1700",
+                    "primary-fixed-dim": "#a0c9ff",
+                    "inverse-on-surface": "#eaf1ff",
+                    "on-tertiary": "#ffffff",
+                    "primary": "#00355f",
+                    "on-tertiary-container": "#aabcc7",
+                    "tertiary-fixed": "#d3e5f1",
+                    "on-surface-variant": "#42474f",
+                    "error-container": "#ffdad6",
+                    "surface": "#f8f9ff",
+                    "secondary-fixed": "#ffddb8",
+                    "tertiary-fixed-dim": "#b7c9d5",
+                    "surface-container-low": "#eff4ff",
+                    "inverse-surface": "#213145",
+                    "on-background": "#0b1c30",
+                    "on-surface": "#0b1c30",
+                    "on-error-container": "#93000a",
+                    "secondary": "#855300",
+                    "background": "#f8f9ff",
+                    "secondary-fixed-dim": "#ffb95f",
+                    "surface-variant": "#d3e4fe",
+                    "surface-container": "#e5eeff",
+                    "surface-dim": "#cbdbf5",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#d2e4ff",
+                    "surface-container-highest": "#d3e4fe",
+                    "surface-tint": "#2d6197",
+                    "on-primary-container": "#8ebdf9",
+                    "on-primary-fixed": "#001c37"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "section-gap": "120px",
+                    "margin-page": "40px",
+                    "unit": "8px",
+                    "container-max": "1280px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Manrope"],
+                    "label-sm": ["Inter"],
+                    "headline-md": ["Manrope"],
+                    "body-lg": ["Manrope"],
+                    "display-xl": ["Manrope"],
+                    "body-md": ["Manrope"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "label-sm": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "display-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            },
+            "animation": {
+              "marquee-15": "marquee-vertical 15s linear infinite",
+              "marquee-17": "marquee-vertical 17s linear infinite",
+              "marquee-19": "marquee-vertical 19s linear infinite"
+            },
+            "keyframes": {
+              "marquee-vertical": {
+                "0%": { transform: "translateY(0)" },
+                "100%": { transform: "translateY(-50%)" }
+              }
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+        }
+        /* Ambient Shadow Utility */
+        .ambient-shadow {
+            box-shadow: 0 10px 20px rgba(15, 76, 129, 0.04);
+        }
+        .ambient-shadow-hover:hover {
+            box-shadow: 0 15px 30px rgba(15, 76, 129, 0.08);
+            border-color: theme('colors.outline-variant');
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md text-on-surface antialiased min-h-screen flex flex-col bg-transparent">
+<canvas id="spline-background" class="fixed inset-0 w-full h-full -z-10 object-cover"></canvas>
+<!-- TopNavBar Component (Sourced from JSON) -->
+<header class="fixed top-0 w-full z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 shadow-[0_10px_20px_rgba(15,76,129,0.04)] font-['Manrope'] text-sm tracking-tight">
+<div class="max-w-[1260px] mx-auto flex items-center justify-between px-8 h-20">
+<!-- Brand -->
+<a class="text-2xl font-black text-[#0F4C81] dark:text-white" href="index.html">SkillSwap</a>
+<!-- Navigation Links (Hidden on mobile per rules) -->
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-slate-600 dark:text-slate-400 font-medium hover:text-[#FFBF00] transition-colors duration-200 active:scale-95 transition-transform" href="browse-services.html">Browse</a>
+<a class="text-slate-600 dark:text-slate-400 font-medium hover:text-[#FFBF00] transition-colors duration-200 active:scale-95 transition-transform" href="#">How it Works</a>
+<a class="text-slate-600 dark:text-slate-400 font-medium hover:text-[#FFBF00] transition-colors duration-200 active:scale-95 transition-transform" href="post-job.html">Post a Job</a>
+<a class="text-slate-600 dark:text-slate-400 font-medium hover:text-[#FFBF00] transition-colors duration-200 active:scale-95 transition-transform" href="dashboard.html">Dashboard</a>
+</nav>
+<!-- Actions -->
+<div class="flex items-center gap-4">
+<button class="text-slate-600 dark:text-slate-400 font-medium hover:text-[#FFBF00] transition-colors duration-200 active:scale-95 transition-transform">
+                    Login
+                </button>
+<button class="bg-[#0F4C81] text-white px-5 py-2.5 rounded-lg font-bold hover:bg-[#00355f] transition-colors duration-200 active:scale-95 transition-transform">
+                    Sign Up
+                </button>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-grow pt-[100px] pb-section-gap px-8 max-w-[1260px] mx-auto w-full flex flex-col gap-section-gap">
+<!-- Hero Section -->
+<section class="flex flex-col lg:flex-row items-center gap-16 min-h-[716px]">
+<!-- Hero Content -->
+<div class="flex-1 flex flex-col gap-8 w-full max-w-2xl">
+<div class="flex flex-col gap-4">
+<span class="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm w-fit">
+                        Professional Connections Made Effortless
+                    </span>
+<h1 class="font-display-xl text-display-xl text-on-surface">
+                        Find the right <span class="text-primary">expert</span> for your next project.
+                    </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg">
+                        The modern marketplace connecting you with verified local professionals. From minor repairs to major renovations, get it done right.
+                    </p>
+</div>
+<!-- Search Bar Container -->
+<div class="bg-surface-container-lowest p-2 rounded-xl ambient-shadow flex items-center border border-outline-variant/30 focus-within:border-primary transition-colors duration-200">
+<div class="flex items-center px-3 text-outline">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</div>
+<input class="flex-grow bg-transparent border-none focus:ring-0 font-body-md text-body-md text-on-surface placeholder:text-outline-variant outline-none px-2" placeholder="What service do you need?" type="text"/>
+<div class="h-8 w-[1px] bg-outline-variant/30 mx-2"></div>
+<div class="flex items-center px-3 text-outline">
+<span class="material-symbols-outlined" data-icon="location_on">location_on</span>
+</div>
+<input class="w-32 bg-transparent border-none focus:ring-0 font-body-md text-body-md text-on-surface placeholder:text-outline-variant outline-none px-2" placeholder="Zip or City" type="text"/>
+<button class="bg-secondary-container text-on-secondary-container px-6 py-3 rounded-lg font-label-sm text-label-sm hover:bg-secondary-fixed transition-colors duration-200 ml-2">
+                        Search
+                    </button>
+</div>
+<div class="flex items-center gap-4 text-outline font-label-sm text-label-sm">
+<span>Popular:</span>
+<a class="hover:text-primary transition-colors" href="#">Plumbing</a>
+<a class="hover:text-primary transition-colors" href="#">Electrical</a>
+<a class="hover:text-primary transition-colors" href="#">Cleaning</a>
+</div>
+</div>
+<!-- 3D Spline Placeholder Stage -->
+<div class="flex-1 w-full flex justify-end">
+<div class="relative w-full max-w-[600px] aspect-square rounded-[24px] overflow-hidden bg-surface-container-high ambient-shadow flex items-center justify-center group">
+<canvas id="canvas3d" class="w-full h-full object-cover outline-none" style="transform: scale(1.5);"></canvas>
+<script type="module">
+  import { Application } from 'https://esm.sh/@splinetool/runtime';
+
+  // Initialize Hero 3D Robot
+  const canvas = document.getElementById('canvas3d');
+  const spline = new Application(canvas);
+  spline.load('https://prod.spline.design/GlAetRIauwPNORef/scene.splinecode').then(() => {
+    if (spline.setZoom) {
+      spline.setZoom(2.5);
+    }
+  });
+
+  // Initialize Background Scene
+  setTimeout(() => {
+    const bgCanvas = document.getElementById('spline-background');
+    if (bgCanvas) {
+      const bgSpline = new Application(bgCanvas);
+      bgSpline.load('https://prod.spline.design/HK25s1Zuyr9d3CV7/scene.splinecode');
+    }
+  }, 1000); // 1-second delay to ensure stable loading alongside hero
+</script>
+<!-- Glassmorphic Overlay Label -->
+<div class="absolute bottom-8 left-8 right-8 bg-surface-container-lowest/80 backdrop-blur-md p-6 rounded-xl border border-white/20 ambient-shadow">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Precision Craftsmanship</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Verified experts ready to assist.</p>
+</div>
+<span class="material-symbols-outlined text-primary" data-icon="verified" data-weight="fill" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Featured Categories (Bento Grid) -->
+<section class="flex flex-col gap-12 w-full">
+<div class="flex flex-col gap-2">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Explore Categories</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Discover top-rated professionals in your area.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest p-8 rounded-[16px] ambient-shadow ambient-shadow-hover transition-all duration-300 border border-transparent flex flex-col gap-6 cursor-pointer group">
+<div class="w-16 h-16 rounded-full bg-surface-container-high flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-300">
+<span class="material-symbols-outlined text-[32px]" data-icon="carpenter">carpenter</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Carpenter</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Custom furniture, repairs, and structural woodworking.</p>
+</div>
+<div class="mt-auto pt-4 flex items-center gap-2 text-primary font-label-sm text-label-sm">
+<span>View Experts</span>
+<span class="material-symbols-outlined text-[16px]" data-icon="arrow_forward">arrow_forward</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest p-8 rounded-[16px] ambient-shadow ambient-shadow-hover transition-all duration-300 border border-transparent flex flex-col gap-6 cursor-pointer group md:translate-y-4">
+<div class="w-16 h-16 rounded-full bg-secondary-fixed flex items-center justify-center text-secondary group-hover:scale-110 transition-transform duration-300">
+<span class="material-symbols-outlined text-[32px]" data-icon="format_paint">format_paint</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Painter</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Interior and exterior painting, drywall repair, and finishing.</p>
+</div>
+<div class="mt-auto pt-4 flex items-center gap-2 text-secondary font-label-sm text-label-sm">
+<span>View Experts</span>
+<span class="material-symbols-outlined text-[16px]" data-icon="arrow_forward">arrow_forward</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest p-8 rounded-[16px] ambient-shadow ambient-shadow-hover transition-all duration-300 border border-transparent flex flex-col gap-6 cursor-pointer group md:translate-y-8">
+<div class="w-16 h-16 rounded-full bg-tertiary-fixed flex items-center justify-center text-tertiary group-hover:scale-110 transition-transform duration-300">
+<span class="material-symbols-outlined text-[32px]" data-icon="cleaning_services">cleaning_services</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Cleaner</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Deep cleaning, move-in/out preparation, and routine maintenance.</p>
+</div>
+<div class="mt-auto pt-4 flex items-center gap-2 text-tertiary font-label-sm text-label-sm">
+<span>View Experts</span>
+<span class="material-symbols-outlined text-[16px]" data-icon="arrow_forward">arrow_forward</span>
+</div>
+</div>
+</div>
+</section>
+<!-- How It Works -->
+<section class="bg-surface-container-low rounded-[24px] p-12 lg:p-24 flex flex-col items-center text-center gap-16 mt-12">
+<div class="flex flex-col gap-4 max-w-2xl">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">How it Works</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Three simple steps to get your task completed by a verified professional.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12 w-full relative">
+<!-- Connecting Line (Desktop) -->
+<div class="hidden md:block absolute top-12 left-[15%] right-[15%] h-[2px] bg-outline-variant/30 z-0"></div>
+<!-- Step 1 -->
+<div class="flex flex-col items-center gap-6 relative z-10">
+<div class="w-24 h-24 rounded-full bg-surface-container-lowest ambient-shadow flex items-center justify-center border-4 border-surface-container-low text-primary">
+<span class="material-symbols-outlined text-[40px]" data-icon="search">search</span>
+</div>
+<div class="flex flex-col gap-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">1. Find an Expert</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xs mx-auto">Browse profiles, read reviews, and select the best fit for your needs.</p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="flex flex-col items-center gap-6 relative z-10">
+<div class="w-24 h-24 rounded-full bg-surface-container-lowest ambient-shadow flex items-center justify-center border-4 border-surface-container-low text-secondary-container">
+<span class="material-symbols-outlined text-[40px]" data-icon="calendar_month">calendar_month</span>
+</div>
+<div class="flex flex-col gap-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">2. Book &amp; Secure</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xs mx-auto">Agree on a price, schedule a time, and securely hold payment.</p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="flex flex-col items-center gap-6 relative z-10">
+<div class="w-24 h-24 rounded-full bg-surface-container-lowest ambient-shadow flex items-center justify-center border-4 border-surface-container-low text-primary">
+<span class="material-symbols-outlined text-[40px]" data-icon="check_circle">check_circle</span>
+</div>
+<div class="flex flex-col gap-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">3. Get it Done</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xs mx-auto">The job is completed, you approve, and payment is released.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer Component (Sourced from JSON) -->
+
+<!-- Testimonials Section -->
+<section class="bg-surface-bright my-20 relative font-['Manrope']">
+  <div class="container z-10 mx-auto px-4 max-w-[1260px]">
+    <!-- Header -->
+    <div class="flex flex-col items-center justify-center max-w-[540px] mx-auto text-center">
+      <div class="flex justify-center">
+        <div class="border border-outline-variant py-1 px-4 rounded-lg font-label-sm text-label-sm">Testimonials</div>
+      </div>
+      <h2 class="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-black tracking-tighter mt-5 text-[#0F4C81] dark:text-white">
+        What our users say
+      </h2>
+      <p class="mt-5 text-on-surface-variant">
+        See what our customers have to say about us.
+      </p>
+    </div>
+
+    <!-- Columns Container -->
+    <div class="flex justify-center gap-6 mt-10 [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)] max-h-[740px] overflow-hidden">
+      <!-- Column 1 -->
+      <div class="flex flex-col gap-6 pb-6 animate-marquee-15">
+        <!-- Original block -->
+        <div class="p-10 rounded-3xl border border-outline-variant shadow-lg shadow-primary/10 max-w-xs w-full bg-white dark:bg-slate-800">
+          <div>This ERP revolutionized our operations, streamlining finance and inventory. The cloud-based platform keeps us productive, even remotely.</div>
+          <div class="flex items-center gap-3 mt-5">
+            <img width="40" height="40" src="https://randomuser.me/api/portraits/women/1.jpg" alt="Briana Patton" class="h-10 w-10 rounded-full object-cover">
+            <div class="flex flex-col">
+              <div class="font-medium tracking-tight leading-5 text-on-surface">Briana Patton</div>
+              <div class="leading-5 opacity-60 tracking-tight text-on-surface-variant text-sm">Operations Manager</div>
+            </div>
+          </div>
+        </div>
+        <div class="p-10 rounded-3xl border border-outline-variant shadow-lg shadow-primary/10 max-w-xs w-full bg-white dark:bg-slate-800">
+          <div>Implementing this ERP was smooth and quick. The customizable, user-friendly interface made team training effortless.</div>
+          <div class="flex items-center gap-3 mt-5">
+            <img width="40" height="40" src="https://randomuser.me/api/portraits/men/2.jpg" alt="Bilal Ahmed" class="h-10 w-10 rounded-full object-cover">
+            <div class="flex flex-col">
+              <div class="font-medium tracking-tight leading-5 text-on-surface">Bilal Ahmed</div>
+              <div class="leading-5 opacity-60 tracking-tight text-on-surface-variant text-sm">IT Manager</div>
+            </div>
+          </div>
+        </div>
+        <div class="p-10 rounded-3xl border border-outline-variant shadow-lg shadow-primary/10 max-w-xs w-full bg-white dark:bg-slate-800">
+          <div>The support team is exceptional, guiding us through setup and providing ongoing assistance, ensuring our satisfaction.</div>
+          <div class="flex items-center gap-3 mt-5">
+            <img width="40" height="40" src="https://randomuser.me/api/portraits/women/3.jpg" alt="Saman Malik" class="h-10 w-10 rounded-full object-cover">
+            <div class="flex flex-col">
+              <div class="font-medium tracking-tight leading-5 text-on-surface">Saman Malik</div>
+              <div class="leading-5 opacity-60 tracking-tight text-on-surface-variant text-sm">Customer Support Lead</div>
+            </div>
+          </div>
+        </div>
+        <!-- Duplicated block for marquee -->
+        <div class="p-10 rounded-3xl border border-outline-variant shadow-lg shadow-primary/10 max-w-xs w-full bg-white dark:bg-slate-800">
+          <div>This ERP revolutionized our operations, streamlining finance and inventory. The cloud-based platform keeps us productive, even remotely.</div>
+          <div class="flex items-center gap-3 mt-5">
+            <img width="40" height="40" src="https://randomuser.me/api/portraits/women/1.jpg" alt="Briana Patton" class="h-10 w-10 rounded-full object-cover">
+            <div class="flex flex-col">
+              <div class="font-medium tracking-tight leading-5 text-on-surface">Briana Patton</div>
+              <div class="leading-5 opacity-60 tracking-tight text-on-surface-variant text-sm">Operations Manager</div>
+            </div>
+          </div>
+        </div>
+        <div class="p-10 rounded-3xl border border-outline-variant shadow-lg shadow-primary/10 max-w-xs w-full bg-white dark:bg-slate-800">
+          <div>Implementing this ERP was smooth and quick. The customizable, user-friendly interface made team training effortless.</div>
+          <div class="flex items-center gap-3 mt-5">
+            <img width="40" height="40" src="https://randomuser.me/api/portraits/men/2.jpg" alt="Bilal Ahmed" class="h-10 w-10 rounded-full object-cover">
+            <div class="flex flex-col">
+              <div class="font-medium tracking-tight leading-5 text-on-surface">Bilal Ahmed</div>
+              <div class="leading-5 opacity-60 tracking-tight text-on-surface-variant text-sm">IT Manager</div>
+            </div>
+          </div>
+        </div>
+        <div class="p-10 rounded-3xl border border-outline-variant shadow-lg shadow-primary/10 max-w-xs w-full bg-white dark:bg-slate-800">
+          <div>The support team is exceptional, guiding us through setup and providing ongoing assistance, ensuring our satisfaction.</div>
+          <div class="flex items-center gap-3 mt-5">
+            <img width="40" height="40" src="https://randomuser.me/api/portraits/women/3.jpg" alt="Saman Malik" class="h-10 w-10 rounded-full object-cover">
+            <div class="flex flex-col">
+              <div class="font-medium tracking-tight leading-5 text-on-surface">Saman Malik</div>
+              <div class="leading-5 opacity-60 tracking-tight text-on-surface-variant text-sm">Customer Support Lead</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column 2 -->
+      <div class="hidden md:flex flex-col gap-6 pb-6 animate-marquee-19">
+        <!-- Original block -->
+        <div class="p-10 rounded-3xl border border-outline-variant shadow-lg shadow-primary/10 max-w-xs w-full bg-white dark:bg-slate-800">
+          <div>This ERP's seamless integration enhanced our business operations and efficiency. Highly recommend for its intuitive interface.</div>
+          <div class="flex items-center gap-3 mt-5">
+            <img width="40" height="40" src="https://randomuser.me/api/portraits/men/4.jpg" alt="Omar Raza" class="h-10 w-10 rounded-full object-cover">
+            <div class="flex flex-col">
+              <div class="font-medium tracking-tight leading-5 text-on-surface">Omar Raza</div>
+              <div class="leading-5 opacity-60 tracking-tight text-on-surface-variant text-sm">CEO</div>
+            </div>
+          </div>
+        </div>
+        <div class="p-10 rounded-3xl border border-outline-variant shadow-lg shadow-primary/10 max-w-xs w-full bg-white dark:bg-slate-800">
+          <div>Its robust features and quick support have transformed our workflow, making us significantly more efficient.</div>
+          <div class="flex items-center gap-3 mt-5">
+            <img width="40" height="40" src="https://randomuser.me/api/portraits/women/5.jpg" alt="Zainab Hussain" class="h-10 w-10 rounded-full object-cover">
+            <div class="flex flex-col">
+              <div class="font-medium tracking-tight leading-5 text-on-surface">Zainab Hussain</div>
+              <div class="leading-5 opacity-60 tracking-tight text-on-surface-variant text-sm">Project Manager</div>
+            </div>
+          </div>
+        </div>
+        <div class="p-10 rounded-3xl border border-outline-variant shadow-lg shadow-primary/10 max-w-xs w-full bg-white dark:bg-slate-800">
+          <div>The smooth implementation exceeded expectations. It streamlined processes, improving overall business performance.</div>
+          <div class="flex items-center gap-3 mt-5">
+            <img width="40" height="40" src="https://randomuser.me/api/portraits/women/6.jpg" alt="Aliza Khan" class="h-10 w-10 rounded-full object-cover">
+            <div class="flex flex-col">
+              <div class="font-medium tracking-tight leading-5 text-on-surface">Aliza Khan</div>
+              <div class="leading-5 opacity-60 tracking-tight text-on-surface-variant text-sm">Business Analyst</div>
+            </div>
+          </div>
+        </div>
+        <!-- Duplicated block -->
+        <div class="p-10 rounded-3xl border border-outline-variant shadow-lg shadow-primary/10 max-w-xs w-full bg-white dark:bg-slate-800">
+          <div>This ERP's seamless integration enhanced our business operations and efficiency. Highly recommend for its intuitive interface.</div>
+          <div class="flex items-center gap-3 mt-5">
+            <img width="40" height="40" src="https://randomuser.me/api/portraits/men/4.jpg" alt="Omar Raza" class="h-10 w-10 rounded-full object-cover">
+            <div class="flex flex-col">
+              <div class="font-medium tracking-tight leading-5 text-on-surface">Omar Raza</div>
+              <div class="leading-5 opacity-60 tracking-tight text-on-surface-variant text-sm">CEO</div>
+            </div>
+          </div>
+        </div>
+        <div class="p-10 rounded-3xl border border-outline-variant shadow-lg shadow-primary/10 max-w-xs w-full bg-white dark:bg-slate-800">
+          <div>Its robust features and quick support have transformed our workflow, making us significantly more efficient.</div>
+          <div class="flex items-center gap-3 mt-5">
+            <img width="40" height="40" src="https://randomuser.me/api/portraits/women/5.jpg" alt="Zainab Hussain" class="h-10 w-10 rounded-full object-cover">
+            <div class="flex flex-col">
+              <div class="font-medium tracking-tight leading-5 text-on-surface">Zainab Hussain</div>
+              <div class="leading-5 opacity-60 tracking-tight text-on-surface-variant text-sm">Project Manager</div>
+            </div>
+          </div>
+        </div>
+        <div class="p-10 rounded-3xl border border-outline-variant shadow-lg shadow-primary/10 max-w-xs w-full bg-white dark:bg-slate-800">
+          <div>The smooth implementation exceeded expectations. It streamlined processes, improving overall business performance.</div>
+          <div class="flex items-center gap-3 mt-5">
+            <img width="40" height="40" src="https://randomuser.me/api/portraits/women/6.jpg" alt="Aliza Khan" class="h-10 w-10 rounded-full object-cover">
+            <div class="flex flex-col">
+              <div class="font-medium tracking-tight leading-5 text-on-surface">Aliza Khan</div>
+              <div class="leading-5 opacity-60 tracking-tight text-on-surface-variant text-sm">Business Analyst</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column 3 -->
+      <div class="hidden lg:flex flex-col gap-6 pb-6 animate-marquee-17">
+        <!-- Original block -->
+        <div class="p-10 rounded-3xl border border-outline-variant shadow-lg shadow-primary/10 max-w-xs w-full bg-white dark:bg-slate-800">
+          <div>Our business functions improved with a user-friendly design and positive customer feedback.</div>
+          <div class="flex items-center gap-3 mt-5">
+            <img width="40" height="40" src="https://randomuser.me/api/portraits/men/7.jpg" alt="Farhan Siddiqui" class="h-10 w-10 rounded-full object-cover">
+            <div class="flex flex-col">
+              <div class="font-medium tracking-tight leading-5 text-on-surface">Farhan Siddiqui</div>
+              <div class="leading-5 opacity-60 tracking-tight text-on-surface-variant text-sm">Marketing Director</div>
+            </div>
+          </div>
+        </div>
+        <div class="p-10 rounded-3xl border border-outline-variant shadow-lg shadow-primary/10 max-w-xs w-full bg-white dark:bg-slate-800">
+          <div>They delivered a solution that exceeded expectations, understanding our needs and enhancing our operations.</div>
+          <div class="flex items-center gap-3 mt-5">
+            <img width="40" height="40" src="https://randomuser.me/api/portraits/women/8.jpg" alt="Sana Sheikh" class="h-10 w-10 rounded-full object-cover">
+            <div class="flex flex-col">
+              <div class="font-medium tracking-tight leading-5 text-on-surface">Sana Sheikh</div>
+              <div class="leading-5 opacity-60 tracking-tight text-on-surface-variant text-sm">Sales Manager</div>
+            </div>
+          </div>
+        </div>
+        <div class="p-10 rounded-3xl border border-outline-variant shadow-lg shadow-primary/10 max-w-xs w-full bg-white dark:bg-slate-800">
+          <div>Using this ERP, our online presence and conversions significantly improved, boosting business performance.</div>
+          <div class="flex items-center gap-3 mt-5">
+            <img width="40" height="40" src="https://randomuser.me/api/portraits/men/9.jpg" alt="Hassan Ali" class="h-10 w-10 rounded-full object-cover">
+            <div class="flex flex-col">
+              <div class="font-medium tracking-tight leading-5 text-on-surface">Hassan Ali</div>
+              <div class="leading-5 opacity-60 tracking-tight text-on-surface-variant text-sm">E-commerce Manager</div>
+            </div>
+          </div>
+        </div>
+        <!-- Duplicated block -->
+        <div class="p-10 rounded-3xl border border-outline-variant shadow-lg shadow-primary/10 max-w-xs w-full bg-white dark:bg-slate-800">
+          <div>Our business functions improved with a user-friendly design and positive customer feedback.</div>
+          <div class="flex items-center gap-3 mt-5">
+            <img width="40" height="40" src="https://randomuser.me/api/portraits/men/7.jpg" alt="Farhan Siddiqui" class="h-10 w-10 rounded-full object-cover">
+            <div class="flex flex-col">
+              <div class="font-medium tracking-tight leading-5 text-on-surface">Farhan Siddiqui</div>
+              <div class="leading-5 opacity-60 tracking-tight text-on-surface-variant text-sm">Marketing Director</div>
+            </div>
+          </div>
+        </div>
+        <div class="p-10 rounded-3xl border border-outline-variant shadow-lg shadow-primary/10 max-w-xs w-full bg-white dark:bg-slate-800">
+          <div>They delivered a solution that exceeded expectations, understanding our needs and enhancing our operations.</div>
+          <div class="flex items-center gap-3 mt-5">
+            <img width="40" height="40" src="https://randomuser.me/api/portraits/women/8.jpg" alt="Sana Sheikh" class="h-10 w-10 rounded-full object-cover">
+            <div class="flex flex-col">
+              <div class="font-medium tracking-tight leading-5 text-on-surface">Sana Sheikh</div>
+              <div class="leading-5 opacity-60 tracking-tight text-on-surface-variant text-sm">Sales Manager</div>
+            </div>
+          </div>
+        </div>
+        <div class="p-10 rounded-3xl border border-outline-variant shadow-lg shadow-primary/10 max-w-xs w-full bg-white dark:bg-slate-800">
+          <div>Using this ERP, our online presence and conversions significantly improved, boosting business performance.</div>
+          <div class="flex items-center gap-3 mt-5">
+            <img width="40" height="40" src="https://randomuser.me/api/portraits/men/9.jpg" alt="Hassan Ali" class="h-10 w-10 rounded-full object-cover">
+            <div class="flex flex-col">
+              <div class="font-medium tracking-tight leading-5 text-on-surface">Hassan Ali</div>
+              <div class="leading-5 opacity-60 tracking-tight text-on-surface-variant text-sm">E-commerce Manager</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="w-full mt-auto bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 font-['Manrope'] text-xs font-normal">
+<div class="max-w-[1260px] mx-auto py-12 px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex flex-col items-center md:items-start gap-2 text-[#0F4C81] dark:text-sky-400">
+<span class="text-lg font-bold text-[#0F4C81] dark:text-white">SkillSwap</span>
+<span class="text-slate-500 dark:text-slate-400 text-center md:text-left">© 2024 SkillSwap Marketplace. Professional Excellence Guaranteed.</span>
+</div>
+<div class="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-2">
+<a class="text-slate-500 dark:text-slate-400 hover:text-[#FFBF00] underline-offset-4 hover:underline opacity-100 hover:opacity-80 transition-opacity" href="#">About SkillSwap</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-[#FFBF00] underline-offset-4 hover:underline opacity-100 hover:opacity-80 transition-opacity" href="browse-services.html">Find a Professional</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-[#FFBF00] underline-offset-4 hover:underline opacity-100 hover:opacity-80 transition-opacity" href="post-job.html">Post a Job</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-[#FFBF00] underline-offset-4 hover:underline opacity-100 hover:opacity-80 transition-opacity" href="#">Safety &amp; Trust</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-[#FFBF00] underline-offset-4 hover:underline opacity-100 hover:opacity-80 transition-opacity" href="#">Privacy Policy</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-[#FFBF00] underline-offset-4 hover:underline opacity-100 hover:opacity-80 transition-opacity" href="#">Terms of Service</a>
+</div>
+</div>
+</footer>
+</body></html>
